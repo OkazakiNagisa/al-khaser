@@ -1,4 +1,4 @@
-## Al-Khaser v0.74
+## Al-Khaser v0.76
 
 ![Logo](https://www.mindmeister.com/files/avatars/0035/8332/original/avatar.jpg)
 
@@ -26,7 +26,7 @@ It performs a bunch of common malware tricks with the goal of seeing if you stay
 
 ## Download
 
-You can download the latest release [here](https://github.com/LordNoteworthy/al-khaser/blob/master/al-khaser.exe?raw=true).
+You can download the latest release here: [x86](https://github.com/LordNoteworthy/al-khaser/blob/master/al-khaser_x86.exe?raw=true) | [x64](https://github.com/LordNoteworthy/al-khaser/blob/master/al-khaser_x64.exe?raw=true).
 
 
 ## Possible uses
@@ -42,13 +42,16 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
 ### Anti-debugging attacks
 - IsDebuggerPresent
 - CheckRemoteDebuggerPresent
-- Process Environement Block (BeingDebugged)
-- Process Environement Block (NtGlobalFlag)
+- Process Environment Block (BeingDebugged)
+- Process Environment Block (NtGlobalFlag)
 - ProcessHeap (Flags)
 - ProcessHeap (ForceFlags)
 - NtQueryInformationProcess (ProcessDebugPort)
 - NtQueryInformationProcess (ProcessDebugFlags)
 - NtQueryInformationProcess (ProcessDebugObject)
+- WudfIsAnyDebuggerPresent
+- WudfIsKernelDebuggerPresent
+- WudfIsUserDebuggerPresent
 - NtSetInformationThread (HideThreadFromDebugger)
 - NtQueryObject (ObjectTypeInformation)
 - NtQueryObject (ObjectAllTypesInformation)
@@ -67,7 +70,17 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
 - TLS callbacks
 - Process jobs
 - Memory write watching
+- Page exception breakpoint detection
+- API hook detection (module bounds based)
 
+
+### Anti-injection
+- Enumerate modules with EnumProcessModulesEx (32-bit, 64-bit, and all options)
+- Enumerate modules with ToolHelp32  
+- Enumerate the process LDR structures with LdrEnumerateLoadedModules
+- Enumerate the process LDR structures directly
+- Walk memory with GetModuleInformation
+- Walk memory for hidden modules
 
 ### Anti-Dumping
 - Erase PE header from memory
@@ -179,6 +192,7 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
   - "\x00\x50\x56" (VMWARE)
   - "\x00\x1C\x42" (Parallels)
   - "\x00\x16\x3E" (Xen)
+  - "\x0A\x00\x27" (Hybrid Analysis)
 - **Virtual devices**
   - "\\\\.\\VBoxMiniRdrDN"
   - "\\\\.\\VBoxGuest"
@@ -234,6 +248,7 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
   - SELECT * FROM Win32_LogicalDisk (Size) (GENERIC)
   - SELECT * FROM Win32_ComputerSystem (Model and Manufacturer) (GENERIC)
   - SELECT * FROM MSAcpi_ThermalZoneTemperature CurrentTemperature) (GENERIC)
+  - SELECT * FROM Win32_Fan (GENERIC)
 - **DLL Exports and Loaded DLLs**
   - avghookx.dll (AVG)
   - avghooka.dll (AVG)
@@ -246,6 +261,8 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
   - pstorec.dll (SunBelt Sandbox)
   - vmcheck.dll (Virtual PC)
   - wpespy.dll (WPE Pro)
+  - cmdvrt32.dll (Comodo Container)
+  - cmdvrt64.dll (Comodo Container)
 - **CPU**
   - Hypervisor presence using (EAX=0x1)
   - Hypervisor vendor using (EAX=0x40000000)
@@ -255,9 +272,7 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
       - "XenVMMXenVMM"(Xen)
       - "prl hyperv  "( Parallels)
          -"VBoxVBoxVBox"( VirtualBox)
-
-      ​
-
+- NtQueryLicenseValue with Kernel-VMDetection-Private as license value.
 
 ### Anti-Analysis
 - **Processes**
@@ -292,6 +307,7 @@ Please, if you encounter any of the anti-analysis tricks which you have seen in 
 - [mrexodia](http://mrexodia.cf): Main developer of [x64dbg](http://x64dbg.com/)
 - [Mattiwatti](https://github.com/Mattiwatti): Matthijs Lavrijsen
 - [gsuberland](https://twitter.com/gsuberland): Graham Sutherland
+- [hFireF0x](https://github.com/hfiref0x): hfiref0x
 
 
 ## References
